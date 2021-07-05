@@ -1,0 +1,751 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "apps.openshift.io/v1",
+      "kind": "DeploymentConfig",
+      "metadata": {
+        "annotations": {
+          "openshift.io/generated-by": "OpenShiftNewApp"
+        },
+        "creationTimestamp": "2021-05-27T14:33:08Z",
+        "generation": 15,
+        "labels": {
+          "app": "gogs"
+        },
+        "name": "gogs",
+        "namespace": "kpi-report",
+        "resourceVersion": "17362025",
+        "uid": "92e29c58-1b5a-452d-b780-83269a06074a"
+      },
+      "spec": {
+        "replicas": 1,
+        "revisionHistoryLimit": 10,
+        "selector": {
+          "app": "gogs",
+          "deploymentconfig": "gogs"
+        },
+        "strategy": {
+          "activeDeadlineSeconds": 21600,
+          "resources": {},
+          "rollingParams": {
+            "intervalSeconds": 1,
+            "maxSurge": "25%",
+            "maxUnavailable": "25%",
+            "timeoutSeconds": 600,
+            "updatePeriodSeconds": 1
+          },
+          "type": "Rolling"
+        },
+        "template": {
+          "metadata": {
+            "annotations": {
+              "openshift.io/generated-by": "OpenShiftNewApp"
+            },
+            "creationTimestamp": null,
+            "labels": {
+              "app": "gogs",
+              "deploymentconfig": "gogs"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "image": "image-registry.openshift-image-registry.svc:5000/openshift/gogs@sha256:5b61edf852d7cfbef2bd3ab9895c42f62a49f566ae73a8865c2c9a2e673a6520",
+                "imagePullPolicy": "Always",
+                "livenessProbe": {
+                  "failureThreshold": 10,
+                  "httpGet": {
+                    "path": "/",
+                    "port": 3000,
+                    "scheme": "HTTP"
+                  },
+                  "initialDelaySeconds": 40,
+                  "periodSeconds": 10,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 1
+                },
+                "name": "gogs",
+                "ports": [
+                  {
+                    "containerPort": 3000,
+                    "protocol": "TCP"
+                  }
+                ],
+                "readinessProbe": {
+                  "failureThreshold": 10,
+                  "httpGet": {
+                    "path": "/",
+                    "port": 3000,
+                    "scheme": "HTTP"
+                  },
+                  "initialDelaySeconds": 40,
+                  "periodSeconds": 20,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 1
+                },
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                  {
+                    "mountPath": "/opt/gogs/data",
+                    "name": "gogs-data"
+                  },
+                  {
+                    "mountPath": "/etc/gogs/conf",
+                    "name": "gogs-config"
+                  }
+                ]
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "restartPolicy": "Always",
+            "schedulerName": "default-scheduler",
+            "securityContext": {},
+            "serviceAccount": "gogs",
+            "serviceAccountName": "gogs",
+            "terminationGracePeriodSeconds": 30,
+            "volumes": [
+              {
+                "name": "gogs-data",
+                "persistentVolumeClaim": {
+                  "claimName": "gogs-data"
+                }
+              },
+              {
+                "configMap": {
+                  "defaultMode": 420,
+                  "items": [
+                    {
+                      "key": "app.ini",
+                      "path": "app.ini"
+                    }
+                  ],
+                  "name": "gogs-config"
+                },
+                "name": "gogs-config"
+              }
+            ]
+          }
+        },
+        "test": false,
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          },
+          {
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "gogs"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "gogs:latest",
+                "namespace": "kpi-report"
+              },
+              "lastTriggeredImage": "image-registry.openshift-image-registry.svc:5000/openshift/gogs@sha256:5b61edf852d7cfbef2bd3ab9895c42f62a49f566ae73a8865c2c9a2e673a6520"
+            },
+            "type": "ImageChange"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps.openshift.io/v1",
+      "kind": "DeploymentConfig",
+      "metadata": {
+        "annotations": {
+          "description": "Defines how to deploy the database",
+          "openshift.io/generated-by": "OpenShiftNewApp"
+        },
+        "creationTimestamp": "2021-05-27T14:33:07Z",
+        "generation": 4,
+        "labels": {
+          "app": "gogs"
+        },
+        "name": "gogs-postgresql",
+        "namespace": "kpi-report",
+        "resourceVersion": "17338069",
+        "uid": "96885bab-fd34-4c15-8ce4-3990e3c0f286"
+      },
+      "spec": {
+        "replicas": 1,
+        "revisionHistoryLimit": 10,
+        "selector": {
+          "name": "gogs-postgresql"
+        },
+        "strategy": {
+          "activeDeadlineSeconds": 21600,
+          "recreateParams": {
+            "timeoutSeconds": 600
+          },
+          "resources": {},
+          "type": "Recreate"
+        },
+        "template": {
+          "metadata": {
+            "annotations": {
+              "openshift.io/generated-by": "OpenShiftNewApp"
+            },
+            "creationTimestamp": null,
+            "labels": {
+              "name": "gogs-postgresql"
+            },
+            "name": "gogs-postgresql"
+          },
+          "spec": {
+            "containers": [
+              {
+                "env": [
+                  {
+                    "name": "POSTGRESQL_USER",
+                    "value": "gogs"
+                  },
+                  {
+                    "name": "POSTGRESQL_PASSWORD",
+                    "value": "gogs"
+                  },
+                  {
+                    "name": "POSTGRESQL_DATABASE",
+                    "value": "gogs"
+                  },
+                  {
+                    "name": "POSTGRESQL_MAX_CONNECTIONS",
+                    "value": "100"
+                  },
+                  {
+                    "name": "POSTGRESQL_SHARED_BUFFERS",
+                    "value": "12MB"
+                  },
+                  {
+                    "name": "POSTGRESQL_ADMIN_PASSWORD",
+                    "value": "784xxhN0"
+                  }
+                ],
+                "image": "image-registry.openshift-image-registry.svc:5000/openshift/postgresql@sha256:bf9a7665e46c73d0ba224fc69515869ca1b81d988d8b618656c24352fdd7997f",
+                "imagePullPolicy": "IfNotPresent",
+                "livenessProbe": {
+                  "failureThreshold": 10,
+                  "initialDelaySeconds": 30,
+                  "periodSeconds": 20,
+                  "successThreshold": 1,
+                  "tcpSocket": {
+                    "port": 5432
+                  },
+                  "timeoutSeconds": 1
+                },
+                "name": "postgresql",
+                "ports": [
+                  {
+                    "containerPort": 5432,
+                    "protocol": "TCP"
+                  }
+                ],
+                "readinessProbe": {
+                  "exec": {
+                    "command": [
+                      "/bin/sh",
+                      "-i",
+                      "-c",
+                      "psql -h 127.0.0.1 -U ${POSTGRESQL_USER} -q -d ${POSTGRESQL_DATABASE} -c 'SELECT 1'"
+                    ]
+                  },
+                  "failureThreshold": 10,
+                  "initialDelaySeconds": 30,
+                  "periodSeconds": 10,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 1
+                },
+                "resources": {
+                  "limits": {
+                    "memory": "512Mi"
+                  }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                  {
+                    "mountPath": "/var/lib/pgsql/data",
+                    "name": "gogs-postgres-data"
+                  }
+                ]
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "restartPolicy": "Always",
+            "schedulerName": "default-scheduler",
+            "securityContext": {},
+            "serviceAccount": "gogs",
+            "serviceAccountName": "gogs",
+            "terminationGracePeriodSeconds": 30,
+            "volumes": [
+              {
+                "name": "gogs-postgres-data",
+                "persistentVolumeClaim": {
+                  "claimName": "gogs-postgres-data"
+                }
+              }
+            ]
+          }
+        },
+        "test": false,
+        "triggers": [
+          {
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "postgresql"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "postgresql:10-el8",
+                "namespace": "openshift"
+              },
+              "lastTriggeredImage": "image-registry.openshift-image-registry.svc:5000/openshift/postgresql@sha256:bf9a7665e46c73d0ba224fc69515869ca1b81d988d8b618656c24352fdd7997f"
+            },
+            "type": "ImageChange"
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps.openshift.io/v1",
+      "kind": "DeploymentConfig",
+      "metadata": {
+        "annotations": {
+          "app.openshift.io/vcs-ref": "master",
+          "app.openshift.io/vcs-uri": "http://gogs.kpi-report.svc.clsuter.local:3000/git/kpi-report.git",
+          "openshift.io/generated-by": "OpenShiftWebConsole"
+        },
+        "creationTimestamp": "2021-05-27T14:33:08Z",
+        "generation": 1929,
+        "labels": {
+          "app": "kpi-deploy",
+          "app.kubernetes.io/component": "kpi-deploy",
+          "app.kubernetes.io/instance": "kpi-deploy",
+          "app.kubernetes.io/name": "php",
+          "app.kubernetes.io/part-of": "kpi-deploy",
+          "app.openshift.io/runtime": "php",
+          "app.openshift.io/runtime-version": "7.3-ubi8"
+        },
+        "name": "kpi-deploy",
+        "namespace": "kpi-report",
+        "resourceVersion": "24216521",
+        "uid": "c7612f44-a017-4d19-b4c5-6f0bf6d7cfc9"
+      },
+      "spec": {
+        "replicas": 1,
+        "revisionHistoryLimit": 10,
+        "selector": {
+          "app": "kpi-deploy",
+          "deploymentconfig": "kpi-deploy"
+        },
+        "strategy": {
+          "activeDeadlineSeconds": 21600,
+          "resources": {},
+          "rollingParams": {
+            "intervalSeconds": 1,
+            "maxSurge": "25%",
+            "maxUnavailable": "25%",
+            "timeoutSeconds": 600,
+            "updatePeriodSeconds": 1
+          },
+          "type": "Rolling"
+        },
+        "template": {
+          "metadata": {
+            "creationTimestamp": null,
+            "labels": {
+              "app": "kpi-deploy",
+              "deploymentconfig": "kpi-deploy"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "image": "image-registry.openshift-image-registry.svc:5000/kpi-report/kpi-deploy@sha256:2f6204559642a8a37a053ba3779ed984c39424ff310b95ffe612c8f73e6ff311",
+                "imagePullPolicy": "Always",
+                "name": "kpi-deploy",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  },
+                  {
+                    "containerPort": 8443,
+                    "protocol": "TCP"
+                  }
+                ],
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File"
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "restartPolicy": "Always",
+            "schedulerName": "default-scheduler",
+            "securityContext": {},
+            "terminationGracePeriodSeconds": 30
+          }
+        },
+        "test": false,
+        "triggers": [
+          {
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "kpi-deploy"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "kpi-deploy:latest",
+                "namespace": "kpi-report"
+              },
+              "lastTriggeredImage": "image-registry.openshift-image-registry.svc:5000/kpi-report/kpi-deploy@sha256:2f6204559642a8a37a053ba3779ed984c39424ff310b95ffe612c8f73e6ff311"
+            },
+            "type": "ImageChange"
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps.openshift.io/v1",
+      "kind": "DeploymentConfig",
+      "metadata": {
+        "annotations": {
+          "openshift.io/generated-by": "OpenShiftWebConsole"
+        },
+        "creationTimestamp": "2021-05-27T14:33:08Z",
+        "generation": 5790,
+        "labels": {
+          "app": "kpi-premium-ardh",
+          "app.kubernetes.io/component": "kpi-premium-ardh",
+          "app.kubernetes.io/instance": "kpi-premium-ardh",
+          "app.kubernetes.io/name": "kpi-premium",
+          "app.kubernetes.io/part-of": "kpi-premium",
+          "app.openshift.io/runtime": "php",
+          "app.openshift.io/runtime-namespace": "kpi-report",
+          "app.openshift.io/runtime-version": "latest",
+          "premium": "true"
+        },
+        "name": "kpi-premium-ardh",
+        "namespace": "kpi-report",
+        "resourceVersion": "24219887",
+        "uid": "da4effbd-724e-4f01-8253-f9556ae11638"
+      },
+      "spec": {
+        "replicas": 1,
+        "revisionHistoryLimit": 10,
+        "selector": {
+          "app": "kpi-premium-ardh",
+          "deploymentconfig": "kpi-premium-ardh"
+        },
+        "strategy": {
+          "activeDeadlineSeconds": 21600,
+          "resources": {},
+          "rollingParams": {
+            "intervalSeconds": 1,
+            "maxSurge": "25%",
+            "maxUnavailable": "25%",
+            "timeoutSeconds": 600,
+            "updatePeriodSeconds": 1
+          },
+          "type": "Rolling"
+        },
+        "template": {
+          "metadata": {
+            "annotations": {
+              "openshift.io/generated-by": "OpenShiftWebConsole"
+            },
+            "creationTimestamp": null,
+            "labels": {
+              "app": "kpi-premium-ardh",
+              "deploymentconfig": "kpi-premium-ardh",
+              "premium": "true"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "image": "image-registry.openshift-image-registry.svc:5000/kpi-report/kpi-premium@sha256:a13d484c5179078fe949f92dbf0301b51d556995eeacbd1e4cee88273facaca2",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "kpi-premium-ardh",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  },
+                  {
+                    "containerPort": 8443,
+                    "protocol": "TCP"
+                  }
+                ],
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File"
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "nodeSelector": {
+              "zone": "ardh"
+            },
+            "restartPolicy": "Always",
+            "schedulerName": "default-scheduler",
+            "securityContext": {},
+            "terminationGracePeriodSeconds": 30
+          }
+        },
+        "test": false,
+        "triggers": [
+          {
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "kpi-premium-ardh"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "kpi-premium:latest",
+                "namespace": "kpi-report"
+              },
+              "lastTriggeredImage": "image-registry.openshift-image-registry.svc:5000/kpi-report/kpi-premium@sha256:a13d484c5179078fe949f92dbf0301b51d556995eeacbd1e4cee88273facaca2"
+            },
+            "type": "ImageChange"
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps.openshift.io/v1",
+      "kind": "DeploymentConfig",
+      "metadata": {
+        "annotations": {
+          "openshift.io/generated-by": "OpenShiftWebConsole"
+        },
+        "creationTimestamp": "2021-05-27T14:33:08Z",
+        "generation": 5790,
+        "labels": {
+          "app": "kpi-premium-db",
+          "app.kubernetes.io/component": "kpi-premium-db",
+          "app.kubernetes.io/instance": "kpi-premium-db",
+          "app.kubernetes.io/name": "kpi-premium",
+          "app.kubernetes.io/part-of": "kpi-premium",
+          "app.openshift.io/runtime": "php",
+          "app.openshift.io/runtime-namespace": "kpi-report",
+          "app.openshift.io/runtime-version": "latest",
+          "premium": "true"
+        },
+        "name": "kpi-premium-db",
+        "namespace": "kpi-report",
+        "resourceVersion": "24219898",
+        "uid": "8800d6cb-eb09-4dec-8d33-63c408917c76"
+      },
+      "spec": {
+        "replicas": 1,
+        "revisionHistoryLimit": 10,
+        "selector": {
+          "app": "kpi-premium-db",
+          "deploymentconfig": "kpi-premium-db"
+        },
+        "strategy": {
+          "activeDeadlineSeconds": 21600,
+          "resources": {},
+          "rollingParams": {
+            "intervalSeconds": 1,
+            "maxSurge": "25%",
+            "maxUnavailable": "25%",
+            "timeoutSeconds": 600,
+            "updatePeriodSeconds": 1
+          },
+          "type": "Rolling"
+        },
+        "template": {
+          "metadata": {
+            "annotations": {
+              "openshift.io/generated-by": "OpenShiftWebConsole"
+            },
+            "creationTimestamp": null,
+            "labels": {
+              "app": "kpi-premium-db",
+              "deploymentconfig": "kpi-premium-db",
+              "premium": "true"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "image": "image-registry.openshift-image-registry.svc:5000/kpi-report/kpi-premium@sha256:a13d484c5179078fe949f92dbf0301b51d556995eeacbd1e4cee88273facaca2",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "kpi-premium-db",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  },
+                  {
+                    "containerPort": 8443,
+                    "protocol": "TCP"
+                  }
+                ],
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File"
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "nodeSelector": {
+              "zone": "db"
+            },
+            "restartPolicy": "Always",
+            "schedulerName": "default-scheduler",
+            "securityContext": {},
+            "terminationGracePeriodSeconds": 30
+          }
+        },
+        "test": false,
+        "triggers": [
+          {
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "kpi-premium-db"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "kpi-premium:latest",
+                "namespace": "kpi-report"
+              },
+              "lastTriggeredImage": "image-registry.openshift-image-registry.svc:5000/kpi-report/kpi-premium@sha256:a13d484c5179078fe949f92dbf0301b51d556995eeacbd1e4cee88273facaca2"
+            },
+            "type": "ImageChange"
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps.openshift.io/v1",
+      "kind": "DeploymentConfig",
+      "metadata": {
+        "annotations": {
+          "app.openshift.io/vcs-ref": "master",
+          "app.openshift.io/vcs-uri": "http://gogs.kpi-report.svc.cluster.local:3000/git/kpi-report.git",
+          "openshift.io/generated-by": "OpenShiftWebConsole"
+        },
+        "creationTimestamp": "2021-05-27T14:33:08Z",
+        "generation": 1929,
+        "labels": {
+          "app": "kpi-standard",
+          "app.kubernetes.io/component": "kpi-standard",
+          "app.kubernetes.io/instance": "kpi-standard",
+          "app.kubernetes.io/name": "php",
+          "app.kubernetes.io/part-of": "kpi-standard",
+          "app.openshift.io/runtime": "php",
+          "app.openshift.io/runtime-version": "7.3-ubi8"
+        },
+        "name": "kpi-standard",
+        "namespace": "kpi-report",
+        "resourceVersion": "24216499",
+        "uid": "f35522e8-0fc9-4487-950c-94e084c9719f"
+      },
+      "spec": {
+        "replicas": 1,
+        "revisionHistoryLimit": 10,
+        "selector": {
+          "app": "kpi-standard",
+          "deploymentconfig": "kpi-standard"
+        },
+        "strategy": {
+          "activeDeadlineSeconds": 21600,
+          "resources": {},
+          "rollingParams": {
+            "intervalSeconds": 1,
+            "maxSurge": "25%",
+            "maxUnavailable": "25%",
+            "timeoutSeconds": 600,
+            "updatePeriodSeconds": 1
+          },
+          "type": "Rolling"
+        },
+        "template": {
+          "metadata": {
+            "creationTimestamp": null,
+            "labels": {
+              "app": "kpi-standard",
+              "deploymentconfig": "kpi-standard"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "image": "image-registry.openshift-image-registry.svc:5000/kpi-report/kpi-standard@sha256:1d4bee52c3ef605e8b61a4df82a3686cf90f2f0429c1b096c0692d905995ae9c",
+                "imagePullPolicy": "Always",
+                "name": "kpi-standard",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  },
+                  {
+                    "containerPort": 8443,
+                    "protocol": "TCP"
+                  }
+                ],
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File"
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "nodeSelector": {
+              "slastandard": "true"
+            },
+            "restartPolicy": "Always",
+            "schedulerName": "default-scheduler",
+            "securityContext": {},
+            "terminationGracePeriodSeconds": 30
+          }
+        },
+        "test": false,
+        "triggers": [
+          {
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "kpi-standard"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "kpi-standard:latest",
+                "namespace": "kpi-report"
+              },
+              "lastTriggeredImage": "image-registry.openshift-image-registry.svc:5000/kpi-report/kpi-standard@sha256:1d4bee52c3ef605e8b61a4df82a3686cf90f2f0429c1b096c0692d905995ae9c"
+            },
+            "type": "ImageChange"
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ]
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

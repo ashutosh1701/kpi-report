@@ -1,0 +1,164 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "route.openshift.io/v1",
+      "kind": "Route",
+      "metadata": {
+        "annotations": {
+          "description": "Route for application's http service.",
+          "openshift.io/generated-by": "OpenShiftNewApp"
+        },
+        "creationTimestamp": "2021-05-27T19:54:23Z",
+        "labels": {
+          "app": "gogs"
+        },
+        "name": "gogs",
+        "namespace": "kpi-report",
+        "resourceVersion": "20993537",
+        "uid": "63a6b367-143f-4df2-962c-1a3b65ce5a0f"
+      },
+      "spec": {
+        "host": "gogs-kpi-report.apps.acps-charlie-r1.got.volvo.net",
+        "to": {
+          "kind": "Service",
+          "name": "gogs",
+          "weight": 100
+        },
+        "wildcardPolicy": "None"
+      }
+    },
+    {
+      "apiVersion": "route.openshift.io/v1",
+      "kind": "Route",
+      "metadata": {
+        "annotations": {
+          "openshift.io/host.generated": "true"
+        },
+        "creationTimestamp": "2021-05-27T19:55:08Z",
+        "labels": {
+          "app": "kpi-deploy",
+          "app.kubernetes.io/component": "kpi-deploy",
+          "app.kubernetes.io/instance": "kpi-deploy",
+          "app.kubernetes.io/name": "php",
+          "app.kubernetes.io/part-of": "kpi-deploy",
+          "app.openshift.io/runtime": "php",
+          "app.openshift.io/runtime-version": "7.3-ubi8"
+        },
+        "name": "kpi-deploy",
+        "namespace": "kpi-report",
+        "resourceVersion": "20993538",
+        "uid": "2478a694-4ae8-4ca3-b983-30c5a7ea4979"
+      },
+      "spec": {
+        "host": "kpi-deploy-kpi-report.apps.acps-charlie-r1.got.volvo.net",
+        "port": {
+          "targetPort": "8080-tcp"
+        },
+        "tls": {
+          "insecureEdgeTerminationPolicy": "Redirect",
+          "termination": "edge"
+        },
+        "to": {
+          "kind": "Service",
+          "name": "kpi-deploy",
+          "weight": 100
+        },
+        "wildcardPolicy": "None"
+      }
+    },
+    {
+      "apiVersion": "route.openshift.io/v1",
+      "kind": "Route",
+      "metadata": {
+        "annotations": {
+          "haproxy.router.openshift.io/balance": "roundrobin",
+          "haproxy.router.openshift.io/disable_cookies": "true",
+          "openshift.io/host.generated": "true"
+        },
+        "creationTimestamp": "2021-05-27T19:54:54Z",
+        "labels": {
+          "app": "kpi-premium",
+          "app.kubernetes.io/component": "kpi-premium",
+          "app.kubernetes.io/instance": "kpi-premium",
+          "app.kubernetes.io/name": "php",
+          "app.kubernetes.io/part-of": "kpi-premium",
+          "app.openshift.io/runtime": "php",
+          "app.openshift.io/runtime-version": "7.3-ubi7",
+          "premium": "true"
+        },
+        "name": "kpi-premium",
+        "namespace": "kpi-report",
+        "resourceVersion": "20993539",
+        "uid": "c41dcc06-755f-4320-adc8-eb114619673b"
+      },
+      "spec": {
+        "alternateBackends": [
+          {
+            "kind": "Service",
+            "name": "kpi-premium-ardh",
+            "weight": 1
+          }
+        ],
+        "host": "kpi-premium-kpi-report.apps.acps-charlie-r1.got.volvo.net",
+        "port": {
+          "targetPort": "8080-tcp"
+        },
+        "tls": {
+          "insecureEdgeTerminationPolicy": "Redirect",
+          "termination": "edge"
+        },
+        "to": {
+          "kind": "Service",
+          "name": "kpi-premium-db",
+          "weight": 1
+        },
+        "wildcardPolicy": "None"
+      }
+    },
+    {
+      "apiVersion": "route.openshift.io/v1",
+      "kind": "Route",
+      "metadata": {
+        "annotations": {
+          "openshift.io/host.generated": "true"
+        },
+        "creationTimestamp": "2021-05-27T19:54:43Z",
+        "labels": {
+          "app": "kpi-standard",
+          "app.kubernetes.io/component": "kpi-standard",
+          "app.kubernetes.io/instance": "kpi-standard",
+          "app.kubernetes.io/name": "php",
+          "app.kubernetes.io/part-of": "kpi-standard",
+          "app.openshift.io/runtime": "php",
+          "app.openshift.io/runtime-version": "7.3-ubi8"
+        },
+        "name": "kpi-standard",
+        "namespace": "kpi-report",
+        "resourceVersion": "20993540",
+        "uid": "b2303eab-de03-475d-b5bc-fca03fced287"
+      },
+      "spec": {
+        "host": "kpi-standard-kpi-report.apps.acps-charlie-r1.got.volvo.net",
+        "port": {
+          "targetPort": "8080-tcp"
+        },
+        "tls": {
+          "insecureEdgeTerminationPolicy": "Redirect",
+          "termination": "edge"
+        },
+        "to": {
+          "kind": "Service",
+          "name": "kpi-standard",
+          "weight": 100
+        },
+        "wildcardPolicy": "None"
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

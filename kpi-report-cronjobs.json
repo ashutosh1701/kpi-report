@@ -1,0 +1,181 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "batch/v1beta1",
+      "kind": "CronJob",
+      "metadata": {
+        "creationTimestamp": "2021-05-27T14:33:07Z",
+        "name": "kpi-deploy",
+        "namespace": "kpi-report",
+        "resourceVersion": "24221208",
+        "selfLink": "/apis/batch/v1beta1/namespaces/kpi-report/cronjobs/kpi-deploy",
+        "uid": "a747fb62-22f3-4243-9fec-87a2500d4a97"
+      },
+      "spec": {
+        "concurrencyPolicy": "Allow",
+        "failedJobsHistoryLimit": 1,
+        "jobTemplate": {
+          "metadata": {
+            "creationTimestamp": null
+          },
+          "spec": {
+            "template": {
+              "metadata": {
+                "creationTimestamp": null
+              },
+              "spec": {
+                "containers": [
+                  {
+                    "command": [
+                      "curl",
+                      "-X",
+                      "POST",
+                      "-H",
+                      "Content-Type: application/json",
+                      "-k",
+                      "https://api.acps-charlie.got.volvo.net:6443/apis/build.openshift.io/v1/namespaces/kpi-report/buildconfigs/kpi-deploy/webhooks/bc25282afcfc2c05/generic"
+                    ],
+                    "image": "rhel7",
+                    "imagePullPolicy": "Always",
+                    "name": "kpi-deploy",
+                    "resources": {},
+                    "terminationMessagePath": "/dev/termination-log",
+                    "terminationMessagePolicy": "File"
+                  }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "restartPolicy": "OnFailure",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "terminationGracePeriodSeconds": 30
+              }
+            }
+          }
+        },
+        "schedule": "0/15 * * * *",
+        "successfulJobsHistoryLimit": 3,
+        "suspend": false
+      }
+    },
+    {
+      "apiVersion": "batch/v1beta1",
+      "kind": "CronJob",
+      "metadata": {
+        "creationTimestamp": "2021-05-27T14:33:07Z",
+        "name": "kpi-premium",
+        "namespace": "kpi-report",
+        "resourceVersion": "24221211",
+        "selfLink": "/apis/batch/v1beta1/namespaces/kpi-report/cronjobs/kpi-premium",
+        "uid": "c70862fa-30f5-4d80-81ce-20cca247fffe"
+      },
+      "spec": {
+        "concurrencyPolicy": "Allow",
+        "failedJobsHistoryLimit": 1,
+        "jobTemplate": {
+          "metadata": {
+            "creationTimestamp": null
+          },
+          "spec": {
+            "template": {
+              "metadata": {
+                "creationTimestamp": null
+              },
+              "spec": {
+                "containers": [
+                  {
+                    "command": [
+                      "curl",
+                      "-X",
+                      "POST",
+                      "-H",
+                      "Content-Type: application/json",
+                      "-k",
+                      "https://api.acps-charlie.got.volvo.net:6443/apis/build.openshift.io/v1/namespaces/kpi-report/buildconfigs/kpi-premium/webhooks/013e7caab7da3514/generic"
+                    ],
+                    "image": "rhel7",
+                    "imagePullPolicy": "Always",
+                    "name": "kpi-deploy",
+                    "resources": {},
+                    "terminationMessagePath": "/dev/termination-log",
+                    "terminationMessagePolicy": "File"
+                  }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "restartPolicy": "OnFailure",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "terminationGracePeriodSeconds": 30
+              }
+            }
+          }
+        },
+        "schedule": "0/5 * * * *",
+        "successfulJobsHistoryLimit": 3,
+        "suspend": false
+      }
+    },
+    {
+      "apiVersion": "batch/v1beta1",
+      "kind": "CronJob",
+      "metadata": {
+        "creationTimestamp": "2021-05-27T14:33:07Z",
+        "name": "kpi-standard",
+        "namespace": "kpi-report",
+        "resourceVersion": "24221215",
+        "selfLink": "/apis/batch/v1beta1/namespaces/kpi-report/cronjobs/kpi-standard",
+        "uid": "a814eced-986e-46ad-8948-f99a6a73b1a3"
+      },
+      "spec": {
+        "concurrencyPolicy": "Allow",
+        "failedJobsHistoryLimit": 1,
+        "jobTemplate": {
+          "metadata": {
+            "creationTimestamp": null
+          },
+          "spec": {
+            "template": {
+              "metadata": {
+                "creationTimestamp": null
+              },
+              "spec": {
+                "containers": [
+                  {
+                    "command": [
+                      "curl",
+                      "-X",
+                      "POST",
+                      "-H",
+                      "Content-Type: application/json",
+                      "-k",
+                      "https://api.acps-charlie.got.volvo.net:6443/apis/build.openshift.io/v1/namespaces/kpi-report/buildconfigs/kpi-standard/webhooks/74fefe10c1bf0bab/generic"
+                    ],
+                    "image": "rhel7",
+                    "imagePullPolicy": "Always",
+                    "name": "kpi-deploy",
+                    "resources": {},
+                    "terminationMessagePath": "/dev/termination-log",
+                    "terminationMessagePolicy": "File"
+                  }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "restartPolicy": "OnFailure",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "terminationGracePeriodSeconds": 30
+              }
+            }
+          }
+        },
+        "schedule": "0/15 * * * *",
+        "successfulJobsHistoryLimit": 3,
+        "suspend": false
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "PersistentVolumeClaim",
+      "metadata": {
+        "annotations": {
+          "pv.kubernetes.io/bind-completed": "yes",
+          "pv.kubernetes.io/bound-by-controller": "yes",
+          "volume.beta.kubernetes.io/storage-provisioner": "csi.trident.netapp.io"
+        },
+        "creationTimestamp": "2021-05-27T14:31:01Z",
+        "finalizers": [
+          "kubernetes.io/pvc-protection"
+        ],
+        "name": "gogs-data",
+        "namespace": "kpi-report",
+        "resourceVersion": "5086997",
+        "selfLink": "/api/v1/namespaces/kpi-report/persistentvolumeclaims/gogs-data",
+        "uid": "c3140b26-75bc-44fc-b399-877a9605e77d"
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "1Gi"
+          }
+        },
+        "storageClassName": "standard",
+        "volumeMode": "Filesystem",
+        "volumeName": "pvc-c3140b26-75bc-44fc-b399-877a9605e77d"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "PersistentVolumeClaim",
+      "metadata": {
+        "annotations": {
+          "pv.kubernetes.io/bind-completed": "yes",
+          "pv.kubernetes.io/bound-by-controller": "yes",
+          "volume.beta.kubernetes.io/storage-provisioner": "csi.trident.netapp.io"
+        },
+        "creationTimestamp": "2021-05-27T14:33:08Z",
+        "finalizers": [
+          "kubernetes.io/pvc-protection"
+        ],
+        "name": "gogs-postgres-data",
+        "namespace": "kpi-report",
+        "resourceVersion": "5086769",
+        "selfLink": "/api/v1/namespaces/kpi-report/persistentvolumeclaims/gogs-postgres-data",
+        "uid": "de700b9d-3245-4e26-a005-9964bbda6887"
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "1Gi"
+          }
+        },
+        "storageClassName": "standard",
+        "volumeMode": "Filesystem",
+        "volumeName": "pvc-de700b9d-3245-4e26-a005-9964bbda6887"
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "networking.k8s.io/v1",
+      "kind": "NetworkPolicy",
+      "metadata": {
+        "creationTimestamp": "2021-05-27T20:35:19Z",
+        "generation": 1,
+        "name": "allow-from-openshift-ingress",
+        "namespace": "kpi-report",
+        "resourceVersion": "5223184",
+        "selfLink": "/apis/networking.k8s.io/v1/namespaces/kpi-report/networkpolicies/allow-from-openshift-ingress",
+        "uid": "79d72a58-992b-4d69-8ae6-23d98723e02c"
+      },
+      "spec": {
+        "ingress": [
+          {
+            "from": [
+              {
+                "namespaceSelector": {
+                  "matchLabels": {
+                    "network.openshift.io/policy-group": "ingress"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "podSelector": {},
+        "policyTypes": [
+          "Ingress"
+        ]
+      }
+    },
+    {
+      "apiVersion": "networking.k8s.io/v1",
+      "kind": "NetworkPolicy",
+      "metadata": {
+        "creationTimestamp": "2021-05-27T20:35:19Z",
+        "generation": 1,
+        "name": "allow-from-same-namespace",
+        "namespace": "kpi-report",
+        "resourceVersion": "5223185",
+        "selfLink": "/apis/networking.k8s.io/v1/namespaces/kpi-report/networkpolicies/allow-from-same-namespace",
+        "uid": "95b55e2f-5faa-4c3b-8370-97c1b2f50a5f"
+      },
+      "spec": {
+        "ingress": [
+          {
+            "from": [
+              {
+                "podSelector": {}
+              }
+            ]
+          }
+        ],
+        "podSelector": {},
+        "policyTypes": [
+          "Ingress"
+        ]
+      }
+    },
+    {
+      "apiVersion": "networking.k8s.io/v1",
+      "kind": "NetworkPolicy",
+      "metadata": {
+        "creationTimestamp": "2021-05-27T20:35:19Z",
+        "generation": 1,
+        "name": "default-deny",
+        "namespace": "kpi-report",
+        "resourceVersion": "5223186",
+        "selfLink": "/apis/networking.k8s.io/v1/namespaces/kpi-report/networkpolicies/default-deny",
+        "uid": "50f1d1ea-37a5-40fa-a8f6-b2993be4da06"
+      },
+      "spec": {
+        "podSelector": {},
+        "policyTypes": [
+          "Ingress"
+        ]
+      }
+    },
+    {
+      "apiVersion": "networking.k8s.io/v1",
+      "kind": "NetworkPolicy",
+      "metadata": {
+        "creationTimestamp": "2021-05-27T20:35:19Z",
+        "generation": 1,
+        "name": "kpi-deploy-allow-external",
+        "namespace": "kpi-report",
+        "resourceVersion": "5223187",
+        "selfLink": "/apis/networking.k8s.io/v1/namespaces/kpi-report/networkpolicies/kpi-deploy-allow-external",
+        "uid": "fba480dd-e1ab-43ef-ad86-95795f90017c"
+      },
+      "spec": {
+        "ingress": [
+          {}
+        ],
+        "podSelector": {
+          "matchLabels": {
+            "app": "kpi-deploy"
+          }
+        },
+        "policyTypes": [
+          "Ingress"
+        ]
+      }
+    },
+    {
+      "apiVersion": "networking.k8s.io/v1",
+      "kind": "NetworkPolicy",
+      "metadata": {
+        "creationTimestamp": "2021-05-27T20:35:19Z",
+        "generation": 1,
+        "name": "kpi-standard-allow-external",
+        "namespace": "kpi-report",
+        "resourceVersion": "5223188",
+        "selfLink": "/apis/networking.k8s.io/v1/namespaces/kpi-report/networkpolicies/kpi-standard-allow-external",
+        "uid": "f2ea7a87-3d03-4dcc-8e8d-f1823aa4be97"
+      },
+      "spec": {
+        "ingress": [
+          {}
+        ],
+        "podSelector": {
+          "matchLabels": {
+            "app": "kpi-standard"
+          }
+        },
+        "policyTypes": [
+          "Ingress"
+        ]
+      }
+    },
+    {
+      "apiVersion": "networking.k8s.io/v1",
+      "kind": "NetworkPolicy",
+      "metadata": {
+        "creationTimestamp": "2021-05-27T20:35:19Z",
+        "generation": 1,
+        "name": "premium-allow-external",
+        "namespace": "kpi-report",
+        "resourceVersion": "5223189",
+        "selfLink": "/apis/networking.k8s.io/v1/namespaces/kpi-report/networkpolicies/premium-allow-external",
+        "uid": "b5331a1a-a066-4e5d-968b-a0208bc75efa"
+      },
+      "spec": {
+        "ingress": [
+          {}
+        ],
+        "podSelector": {
+          "matchLabels": {
+            "premium": "true"
+          }
+        },
+        "policyTypes": [
+          "Ingress"
+        ]
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}

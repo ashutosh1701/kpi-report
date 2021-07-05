@@ -1,0 +1,27 @@
+{
+  "apiVersion": "v1",
+  "kind": "Namespace",
+  "metadata": {
+    "annotations": {
+      "openshift.io/description": "",
+      "openshift.io/display-name": "",
+      "openshift.io/requester": "a387599",
+      "openshift.io/sa.scc.mcs": "s0:c28,c12",
+      "openshift.io/sa.scc.supplemental-groups": "1000780000/10000",
+      "openshift.io/sa.scc.uid-range": "1000780000/10000"
+    },
+    "creationTimestamp": "2021-05-27T14:25:46Z",
+    "name": "kpi-report",
+    "resourceVersion": "5037963",
+    "selfLink": "/api/v1/namespaces/kpi-report",
+    "uid": "6827a02d-c4db-4fb1-813e-252bad1ef2bc"
+  },
+  "spec": {
+    "finalizers": [
+      "kubernetes"
+    ]
+  },
+  "status": {
+    "phase": "Active"
+  }
+}

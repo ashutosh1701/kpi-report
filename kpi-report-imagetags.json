@@ -1,0 +1,130 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "image.openshift.io/v1",
+      "image": null,
+      "kind": "ImageTag",
+      "metadata": {
+        "annotations": {
+          "openshift.io/image.dockerRepositoryCheck": "2021-05-27T19:34:09Z"
+        },
+        "creationTimestamp": "2021-05-27T19:34:08Z",
+        "generation": 2,
+        "labels": {
+          "app": "gogs"
+        },
+        "name": "gogs:latest",
+        "namespace": "kpi-report",
+        "resourceVersion": "5192681",
+        "uid": "1a64cf14-18bc-44af-998c-6e41961963b1"
+      },
+      "spec": {
+        "annotations": {
+          "description": "The Gogs git server docker image",
+          "tags": "gogs,go,golang",
+          "version": "latest"
+        },
+        "from": {
+          "kind": "DockerImage",
+          "name": "image-registry.openshift-image-registry.svc:5000/openshift/gogs:latest"
+        },
+        "generation": 2,
+        "importPolicy": {},
+        "name": "latest",
+        "referencePolicy": {
+          "type": "Source"
+        }
+      }
+    },
+    {
+      "apiVersion": "image.openshift.io/v1",
+      "image": null,
+      "kind": "ImageTag",
+      "metadata": {
+        "annotations": {
+          "app.openshift.io/vcs-ref": "master",
+          "app.openshift.io/vcs-uri": "http://gogs.kpi-report.svc.clsuter.local:3000/git/kpi-report.git",
+          "openshift.io/generated-by": "OpenShiftWebConsole"
+        },
+        "creationTimestamp": "2021-05-27T14:33:08Z",
+        "generation": 1,
+        "labels": {
+          "app": "kpi-deploy",
+          "app.kubernetes.io/component": "kpi-deploy",
+          "app.kubernetes.io/instance": "kpi-deploy",
+          "app.kubernetes.io/name": "php",
+          "app.kubernetes.io/part-of": "kpi-deploy",
+          "app.openshift.io/runtime": "php",
+          "app.openshift.io/runtime-version": "7.3-ubi8"
+        },
+        "name": "kpi-deploy:latest",
+        "namespace": "kpi-report",
+        "resourceVersion": "24216289",
+        "uid": "8d2ec79f-b10d-4ecd-90ee-de34bc938a63"
+      },
+      "spec": null
+    },
+    {
+      "apiVersion": "image.openshift.io/v1",
+      "image": null,
+      "kind": "ImageTag",
+      "metadata": {
+        "annotations": {
+          "app.openshift.io/vcs-ref": "master",
+          "app.openshift.io/vcs-uri": "http://gogs.kpi-report.svc.cluster.local:3000/git/kpi-report.git",
+          "openshift.io/generated-by": "OpenShiftWebConsole"
+        },
+        "creationTimestamp": "2021-05-27T14:33:08Z",
+        "generation": 1,
+        "labels": {
+          "app": "kpi-premium",
+          "app.kubernetes.io/component": "kpi-premium",
+          "app.kubernetes.io/instance": "kpi-premium",
+          "app.kubernetes.io/name": "php",
+          "app.kubernetes.io/part-of": "kpi-premium",
+          "app.openshift.io/runtime": "php",
+          "app.openshift.io/runtime-version": "7.3-ubi7"
+        },
+        "name": "kpi-premium:latest",
+        "namespace": "kpi-report",
+        "resourceVersion": "24219685",
+        "uid": "8b33f34a-f820-4c01-b8f9-da61eb9c292a"
+      },
+      "spec": null
+    },
+    {
+      "apiVersion": "image.openshift.io/v1",
+      "image": null,
+      "kind": "ImageTag",
+      "metadata": {
+        "annotations": {
+          "app.openshift.io/vcs-ref": "master",
+          "app.openshift.io/vcs-uri": "http://gogs.kpi-report.svc.cluster.local:3000/git/kpi-report.git",
+          "openshift.io/generated-by": "OpenShiftWebConsole"
+        },
+        "creationTimestamp": "2021-05-27T14:33:08Z",
+        "generation": 1,
+        "labels": {
+          "app": "kpi-standard",
+          "app.kubernetes.io/component": "kpi-standard",
+          "app.kubernetes.io/instance": "kpi-standard",
+          "app.kubernetes.io/name": "php",
+          "app.kubernetes.io/part-of": "kpi-standard",
+          "app.openshift.io/runtime": "php",
+          "app.openshift.io/runtime-version": "7.3-ubi8"
+        },
+        "name": "kpi-standard:latest",
+        "namespace": "kpi-report",
+        "resourceVersion": "24216303",
+        "uid": "f1093d59-414b-407b-bcbb-51a28b44ee46"
+      },
+      "spec": null
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": "",
+    "selfLink": ""
+  }
+}
